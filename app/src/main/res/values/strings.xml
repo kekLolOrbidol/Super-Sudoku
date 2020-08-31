@@ -1,0 +1,19 @@
+<resources>
+
+    <string name="app_name">GameOfSudoku</string>
+    <string name="play_continue">Continue</string>
+    <string name="my_records">My records</string>
+    <string name="my_sudoku_history">My Sudoku history</string>
+    <string name="about">About</string>
+    <string name="new_game">New Game</string>
+    <string name="drawer_open">Drawer Open</string>
+    <string name="drawer_close">Drawer Close</string>
+    <string name="grid_layout_key">com.rakiwow.gameofsudoku.GRIDLAYOUTKEY</string>
+    <string name="submit_a_bug">Submit a bug or recommendation</string>
+    <string name="send">Send</string>
+    <string name="bug_hint">You can be as detailed as you want</string>
+    <string name="form_submit_success">Report submitted.</string>
+    <string name="form_submit_failed">Something went wrong.</string>
+    <string name="facebook_app_id">1661423810684057</string> <string name="fb_login_protocol_scheme">fb1661423810684057</string>
+
+</resources>

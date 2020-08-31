@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/submit_bug_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#424242"
+        android:text="@string/submit_a_bug"
+        style="?android:listSeparatorTextViewStyle"/>
+
+    <EditText
+        android:id="@+id/bug_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:padding="12dp"
+        android:gravity="start|top"
+        android:textColor="#000000"
+        android:textColorHint="#9E9E9E"
+        android:background="#ffffff"
+        android:hint="@string/bug_hint"
+        android:inputType="textMultiLine"/>
+
+    <Button
+        android:id="@+id/submit_bug_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/send"
+        android:textColor="@color/drawerTextColor"
+        android:textSize="14sp"
+        android:background="@color/buttonColor"
+        style="?android:attr/borderlessButtonStyle" />
+
+</LinearLayout>

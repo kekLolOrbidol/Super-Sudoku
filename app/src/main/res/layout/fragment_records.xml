@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".views.RecordsFragment">
+
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="#000000"
+            android:text="Best times in difficulty category"/>
+
+        <TextView
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:text="ULTRA-NIGHTMARE"/>
+
+        <TextView
+            android:layout_marginLeft="40dp"
+            android:id="@+id/date_difficulty5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000000" />
+
+        <TextView
+            android:layout_marginLeft="40dp"
+            android:id="@+id/record_difficulty5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#000000"/>
+
+        <TextView
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:text="NIGHTMARE"/>
+
+        <TextView
+            android:layout_marginLeft="40dp"
+            android:id="@+id/date_difficulty4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000000" />
+
+        <TextView
+            android:layout_marginLeft="40dp"
+            android:id="@+id/record_difficulty4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#000000"/>
+
+        <TextView
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:text="ULTRA-VIOLENCE"/>
+
+        <TextView
+            android:layout_marginLeft="40dp"
+            android:id="@+id/date_difficulty3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000000" />
+
+        <TextView
+            android:layout_marginLeft="40dp"
+            android:id="@+id/record_difficulty3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#000000"/>
+
+        <TextView
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:text="HURT ME PLENTY"/>
+
+        <TextView
+            android:layout_marginLeft="40dp"
+            android:id="@+id/date_difficulty2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000000" />
+
+        <TextView
+            android:layout_marginLeft="40dp"
+            android:id="@+id/record_difficulty2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#000000"/>
+
+        <TextView
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:text="I'M TOO YOUNG TO DIE"/>
+
+        <TextView
+            android:layout_marginLeft="40dp"
+            android:id="@+id/date_difficulty1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000000" />
+
+        <TextView
+            android:layout_marginLeft="40dp"
+            android:id="@+id/record_difficulty1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:paddingBottom="10dp"/>
+
+    </LinearLayout>
+
+
+</ScrollView>

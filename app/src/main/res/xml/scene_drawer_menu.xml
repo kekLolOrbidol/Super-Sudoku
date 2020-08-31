@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetStart="@id/start"
+        motion:constraintSetEnd="@id/newGame"
+        motion:duration="400">
+        <OnClick
+            motion:targetId="@id/drawer_button_newgame">
+        </OnClick>
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+
+        <!-- Having hardcoded width in dp instead of using match parent seems to result in smoother
+        animation -->
+
+        <Constraint
+            android:id="@+id/drawer_button_continue"
+            android:layout_width="1000dp"
+            android:layout_height="50dp"
+            motion:layout_constraintBottom_toTopOf="@+id/drawer_button_newgame"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@+id/drawer_button_newgame"
+            android:layout_width="1000dp"
+            android:layout_height="50dp"
+            motion:layout_constraintBottom_toTopOf="@+id/drawer_button_records"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/drawer_button_continue">
+            <CustomAttribute
+                motion:attributeName="backgroundColor"
+                motion:customColorValue="@color/buttonColor"/>
+            <CustomAttribute
+                motion:attributeName="textSize"
+                motion:customFloatValue="14"/>
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/drawer_button_records"
+            android:layout_width="1000dp"
+            android:layout_height="50dp"
+            motion:layout_constraintBottom_toTopOf="@+id/drawer_button_history"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/drawer_button_newgame" />
+
+        <Constraint
+            android:id="@+id/drawer_button_history"
+            android:layout_width="1000dp"
+            android:layout_height="50dp"
+            motion:layout_constraintBottom_toTopOf="@+id/drawer_button_about"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/drawer_button_records" />
+
+        <Constraint
+            android:id="@+id/drawer_button_about"
+            android:layout_width="1000dp"
+            android:layout_height="50dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/drawer_button_history" />
+
+
+        <Constraint
+            android:id="@+id/drawer_diff_1"
+            android:layout_width="1000dp"
+            android:layout_height="50dp"
+            android:translationY="1000dp"
+            motion:layout_constraintBottom_toTopOf="@+id/drawer_diff_2"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="parent" />
+
+        <Constraint
+            android:id="@+id/drawer_diff_2"
+            android:layout_width="1000dp"
+            android:layout_height="50dp"
+            android:translationY="1050dp"
+            motion:layout_constraintBottom_toTopOf="@+id/drawer_diff_3"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/drawer_diff_1" />
+
+        <Constraint
+            android:id="@+id/drawer_diff_3"
+            android:layout_width="1000dp"
+            android:layout_height="50dp"
+            android:translationY="1100dp"
+            motion:layout_constraintBottom_toTopOf="@+id/drawer_diff_4"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/drawer_diff_2" />
+
+        <Constraint
+            android:id="@+id/drawer_diff_4"
+            android:layout_width="1000dp"
+            android:layout_height="50dp"
+            android:translationY="1150dp"
+            motion:layout_constraintBottom_toTopOf="@+id/drawer_diff_5"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/drawer_diff_3" />
+
+        <Constraint
+            android:id="@+id/drawer_diff_5"
+            android:layout_width="1000dp"
+            android:layout_height="50dp"
+            android:translationY="1200dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/drawer_diff_4" />
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/newGame">
+
+        <Constraint
+            android:id="@+id/drawer_button_continue"
+            android:layout_width="1000dp"
+            android:layout_height="50dp"
+            android:translationY="1000dp"
+            motion:layout_constraintBottom_toTopOf="@+id/drawer_button_newgame"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@+id/drawer_button_newgame"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent">
+            <CustomAttribute
+                motion:attributeName="backgroundColor"
+                motion:customColorValue="@color/drawerBackground"/>
+            <CustomAttribute
+                motion:attributeName="textSize"
+                motion:customFloatValue="34"/>
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/drawer_button_records"
+            android:layout_width="1000dp"
+            android:layout_height="50dp"
+            android:translationY="1200dp"
+            motion:layout_constraintBottom_toTopOf="@+id/drawer_button_history"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/drawer_button_newgame" />
+
+        <Constraint
+            android:id="@+id/drawer_button_history"
+            android:layout_width="1000dp"
+            android:layout_height="50dp"
+            android:translationY="1300dp"
+            motion:layout_constraintBottom_toTopOf="@+id/drawer_button_about"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/drawer_button_records" />
+
+        <Constraint
+            android:id="@+id/drawer_button_about"
+            android:layout_width="1000dp"
+            android:layout_height="50dp"
+            android:translationY="1400dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/drawer_button_history" />
+
+        <Constraint
+            android:id="@+id/drawer_diff_1"
+            android:layout_width="1000dp"
+            android:layout_height="50dp"
+            motion:layout_constraintBottom_toBottomOf="@+id/drawer_diff_3"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@+id/drawer_diff_2"
+            android:layout_width="1000dp"
+            android:layout_height="50dp"
+            motion:layout_constraintBottom_toBottomOf="@+id/drawer_diff_3"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="@+id/drawer_diff_1" />
+
+        <Constraint
+            android:id="@+id/drawer_diff_3"
+            android:layout_width="1000dp"
+            android:layout_height="50dp"
+            motion:layout_constraintBottom_toBottomOf="@+id/drawer_diff_4"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="@+id/drawer_diff_2" />
+
+        <Constraint
+            android:id="@+id/drawer_diff_4"
+            android:layout_width="1000dp"
+            android:layout_height="50dp"
+            motion:layout_constraintBottom_toBottomOf="@+id/drawer_diff_5"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="@+id/drawer_diff_3" />
+
+        <Constraint
+            android:id="@+id/drawer_diff_5"
+            android:layout_width="1000dp"
+            android:layout_height="50dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="@+id/drawer_diff_4" />
+
+    </ConstraintSet>
+
+</MotionScene>
