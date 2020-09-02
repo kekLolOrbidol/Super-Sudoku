@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.krisko.numbers.R
-import com.krisko.numbers.adapters.HistoryRecyclerViewAdapter
+import com.krisko.numbers.adapters.HistoryAdapter
 import com.krisko.numbers.viewmodel.HistoryViewModel
 import com.krisko.numbers.viewmodel.MainSharedViewModel
 import kotlinx.android.synthetic.main.fragment_history.*
@@ -20,7 +20,7 @@ private const val FRAGMENT_ID = 3
 
 class HistoryFragment : Fragment() {
 
-    private lateinit var adapter: HistoryRecyclerViewAdapter
+    private lateinit var adapter: HistoryAdapter
     private lateinit var historyViewModel: HistoryViewModel
     private lateinit var sharedViewModel: MainSharedViewModel
 
@@ -35,12 +35,12 @@ class HistoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = HistoryRecyclerViewAdapter(resources.configuration.locale)
+        adapter = HistoryAdapter(resources.configuration.locale)
         recycler_history.adapter = adapter
         recycler_history.layoutManager = LinearLayoutManager(activity)
 
         historyViewModel = ViewModelProvider(this).get(HistoryViewModel::class.java)
-        historyViewModel.statsData.observe(viewLifecycleOwner, Observer{ stats ->
+        historyViewModel.data.observe(viewLifecycleOwner, Observer{ stats ->
             stats?.let{adapter.setStats(it)}
         })
 

@@ -9,7 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import kotlinx.android.synthetic.main.content_main_drawer.view.*
 
 
-class MainDrawerContent @kotlin.jvm.JvmOverloads constructor(
+class DrawerContent @kotlin.jvm.JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : MotionLayout(context, attrs, defStyleAttr), DrawerLayout.DrawerListener{
 

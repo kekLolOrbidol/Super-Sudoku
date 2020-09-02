@@ -4,58 +4,56 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.graphics.Typeface
 import android.util.AttributeSet
 import android.util.Log
-import android.widget.TextView
 import androidx.core.content.res.ResourcesCompat
 import com.krisko.numbers.R
 
 import java.lang.StringBuilder
 
-class CellTextView @JvmOverloads constructor(
+class CellTView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : androidx.appcompat.widget.AppCompatTextView(context, attrs, defStyleAttr){
 
     val TAG = "CellTextView"
-    val markList = ArrayList<Int>()
+    val list = ArrayList<Int>()
     val paint = Paint()
 
     fun addMark(number: Int){
-        if(!markList.contains(number)){
-            markList.add(number)
+        if(!list.contains(number)){
+            list.add(number)
         }
     }
 
     fun removeMark(number: Int){
-        if(markList.contains(number)){
-            markList.remove(number)
+        if(list.contains(number)){
+            list.remove(number)
         }
     }
 
     fun removeAllMarks(){
-        if (!markList.isEmpty()){
-            markList.removeAll(mutableListOf(1,2,3,4,5,6,7,8,9))
+        if (!list.isEmpty()){
+            list.removeAll(mutableListOf(1,2,3,4,5,6,7,8,9))
         }else{
             Log.d(TAG, "No marks to remove")
         }
     }
 
     fun hasMark(number: Int): Boolean{
-        return markList.contains(number)
+        return list.contains(number)
     }
 
     override fun onDraw(canvas: Canvas?) {
-        if(!markList.isEmpty()){
+        if(!list.isEmpty()){
             paint.color = Color.BLACK
             paint.textSize = 28f
             paint.textAlign = Paint.Align.CENTER
             paint.typeface = ResourcesCompat.getFont(context, R.font.sanchezregular)
 
-            for (i in 0 until markList.size){
-                val markPositions = getMarkPosition(markList[i])
+            for (i in 0 until list.size){
+                val markPositions = getMarkPosition(list[i])
                 paint.textAlign = Paint.Align.CENTER
-                canvas?.drawText(markList[i].toString(), markPositions[0], markPositions[1], paint)
+                canvas?.drawText(list[i].toString(), markPositions[0], markPositions[1], paint)
             }
         }
         super.onDraw(canvas)
@@ -116,15 +114,15 @@ class CellTextView @JvmOverloads constructor(
     fun addSetOfMarks(markSet: String){
         val marks = markSet.split(",")
         for(mark in marks){
-            if(!markList.contains(mark.toInt())){
-                markList.add(mark.toInt())
+            if(!list.contains(mark.toInt())){
+                list.add(mark.toInt())
             }
         }
     }
 
     fun getSetOfMarks() : String{
         val sb = StringBuilder()
-        for (mark in markList){
+        for (mark in list){
             sb.append(mark.toString()).append(",")
         }
         if(sb.isNotEmpty()){

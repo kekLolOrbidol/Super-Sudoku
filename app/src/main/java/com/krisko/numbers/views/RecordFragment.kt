@@ -40,7 +40,7 @@ class RecordsFragment : Fragment() {
         recordsViewModel = ViewModelProvider(this).get(RecordsViewModel::class.java)
 
         dateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT, resources.configuration.locale)
-        recordsViewModel.recordData.observe(viewLifecycleOwner, Observer{ stats ->
+        recordsViewModel.data.observe(viewLifecycleOwner, Observer{ stats ->
             stats?.let{handleRecords(it)}
         })
         sharedViewModel = activity?.run{

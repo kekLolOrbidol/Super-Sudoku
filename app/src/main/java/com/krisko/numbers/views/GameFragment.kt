@@ -12,13 +12,12 @@ import java.util.*
 import android.graphics.Color
 import android.os.SystemClock
 import android.util.Log
-import android.widget.Chronometer
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.lifecycle.ViewModelProvider
 import com.krisko.numbers.R
 import com.krisko.numbers.data.SudokuStats
-import com.krisko.numbers.utils.CellTextView
+import com.krisko.numbers.utils.CellTView
 import com.krisko.numbers.utils.MySudoku
 import com.krisko.numbers.viewmodel.HistoryViewModel
 import com.krisko.numbers.viewmodel.MainSharedViewModel
@@ -29,12 +28,12 @@ import java.lang.Exception
 private const val TAG = "GameFragment"
 private const val FRAGMENT_ID = 1
 
-class GameFragment : Fragment(), NumberPickerFragment.OnNumberSelectListener {
+class GameFragment : Fragment(), PickerFragment.OnNumberSelectListener {
 
-    val sudoku: MySudoku = MySudoku()
-    val numberFragment = NumberPickerFragment()
+    val mySudoku: MySudoku = MySudoku()
+    val numberFragment = PickerFragment()
 
-    var isPuzzleComplete: Boolean = false
+    var complete: Boolean = false
     var rowCtx: Int = 0
     var colCtx: Int = 0
     private var gameDifficulty = 0
@@ -42,7 +41,7 @@ class GameFragment : Fragment(), NumberPickerFragment.OnNumberSelectListener {
     var pauseOffset: Long = 0L
     var hasRadialFragmentLaunched = false
     var isChronometerRunning = false
-    lateinit var cellCtx: CellTextView
+    lateinit var cellCtx: CellTView
     private lateinit var historyViewModel: HistoryViewModel
     private lateinit var sharedViewModel: MainSharedViewModel
     var clues = 0
@@ -67,8 +66,8 @@ class GameFragment : Fragment(), NumberPickerFragment.OnNumberSelectListener {
             ViewModelProvider(this).get(MainSharedViewModel::class.java)
         }?: throw Exception("Invalid Activity")
         sharedViewModel.currentFragment = FRAGMENT_ID
-        isGameContinued = arguments!!.getBoolean("isGameContinued", true)
-        arguments!!.remove("isGameContinued")
+        isGameContinued = requireArguments().getBoolean("isGameContinued", true)
+        requireArguments().remove("isGameContinued")
         gameDifficulty = arguments!!.getInt("difficulty", 0)
 
         println("Continued: " + isGameContinued)
@@ -83,7 +82,7 @@ class GameFragment : Fragment(), NumberPickerFragment.OnNumberSelectListener {
             val gridString = sharedPref.getString("game", "")
             if(isGameContinued && gridString != ""){ //If a game is continued
                 val unsolvedGridString = sharedPref.getString("unsolved", "")
-                if(isPuzzleComplete){
+                if(complete){
                     gameDifficulty = sharedPref.getInt("difficulty", 0)
                     println("Creating new game from solved sudoku with difficulty " + gameDifficulty)
                     pauseChronometer()
@@ -105,7 +104,7 @@ class GameFragment : Fragment(), NumberPickerFragment.OnNumberSelectListener {
                     setUpGrid(true)
                     resetChronometer()
                     startChronometer()
-                    isPuzzleComplete = false
+                    complete = false
 
                     println("game difficulty: " + gameDifficulty)
                     difficultyTextView.text = getDifficultyString(gameDifficulty)
@@ -157,7 +156,7 @@ class GameFragment : Fragment(), NumberPickerFragment.OnNumberSelectListener {
                 resetChronometer()
                 startChronometer()
                 isGameContinued = true
-                isPuzzleComplete = false
+                complete = false
 
                 difficultyTextView.text = getDifficultyString(gameDifficulty)
             }
@@ -167,7 +166,7 @@ class GameFragment : Fragment(), NumberPickerFragment.OnNumberSelectListener {
     suspend fun createPuzzleBackground(difficulty: Int?) = coroutineScope {
         launch {
             // Difficulties range from 0-10
-            val sudokuBoard = sudoku.createGame(difficulty)
+            val sudokuBoard = mySudoku.createGame(difficulty)
             game = sudokuBoard.board
             clues = sudokuBoard.clues
         }
@@ -179,8 +178,8 @@ class GameFragment : Fragment(), NumberPickerFragment.OnNumberSelectListener {
         //Add arguments to the fragment, so it can detect if it is marking numbers or not
         val args = Bundle()
         args.putBoolean("isMark", isMark)
-        args.putIntegerArrayList("markList", cellCtx.markList)
-        val clearedNumbersList = sudoku.getClearedNumbersList(game)
+        args.putIntegerArrayList("markList", cellCtx.list)
+        val clearedNumbersList = mySudoku.getClearedNumbersList(game)
         args.putBooleanArray("clearedNumbers", clearedNumbersList)
         numberFragment.arguments = args
         fragmentTransaction.add(R.id.fragmentViewGroup, numberFragment)
@@ -219,8 +218,8 @@ class GameFragment : Fragment(), NumberPickerFragment.OnNumberSelectListener {
             childFragmentManager.beginTransaction().remove(numberFragment).commit()
             cellCtx.setBackgroundColor(resources.getColor(R.color.cellDefault))
             //Check if user has completed the puzzle
-            if (sudoku.isGridFilled(game)) {
-                if (sudoku.validateBoard(game)) {
+            if (mySudoku.isGridFilled(game)) {
+                if (mySudoku.validateBoard(game)) {
                     main_constraint_layout.setBackgroundColor(resources.getColor(R.color.correctSudoku))
                     historyViewModel.insert(
                         SudokuStats(
@@ -236,7 +235,7 @@ class GameFragment : Fragment(), NumberPickerFragment.OnNumberSelectListener {
                     game = Array(9) { IntArray(9) }
                     unsolvedGame = Array(9) { IntArray(9) }
                     sudokuOnClickListeners(true)
-                    isPuzzleComplete = true
+                    complete = true
                 } else {
                     main_constraint_layout.setBackgroundColor(resources.getColor(R.color.wrongSudoku))
                 }
@@ -251,7 +250,7 @@ class GameFragment : Fragment(), NumberPickerFragment.OnNumberSelectListener {
 
 
     fun addCellListeners(row: Int, col: Int, omitListener: Boolean) {
-        val view: CellTextView? = getCellAt(row, col)
+        val view: CellTView? = getCellAt(row, col)
         if(!omitListener){
             view?.setOnClickListener { submitCellNumber(it, row, col, false) }
             view?.setOnLongClickListener { submitCellMark(it, row, col, true) }
@@ -287,7 +286,7 @@ class GameFragment : Fragment(), NumberPickerFragment.OnNumberSelectListener {
     }
 
     fun initCell(x: Int, y: Int, removeMark: Boolean) {
-        val tv: CellTextView? = getCellAt(x + 1, y + 1)
+        val tv: CellTView? = getCellAt(x + 1, y + 1)
         tv?.setTextColor(Color.BLACK)
         if(removeMark){
             tv?.removeAllMarks()
@@ -392,7 +391,7 @@ class GameFragment : Fragment(), NumberPickerFragment.OnNumberSelectListener {
                     }
                 }
             }
-            putBoolean("isPuzzleComplete", isPuzzleComplete)
+            putBoolean("isPuzzleComplete", complete)
             putString("game", sb1.toString())
             putString("unsolved", sb2.toString())
             putInt("difficulty", gameDifficulty)
@@ -407,10 +406,10 @@ class GameFragment : Fragment(), NumberPickerFragment.OnNumberSelectListener {
         super.onResume()
         val sharedPref = activity?.getSharedPreferences(getString(R.string.grid_layout_key), Context.MODE_PRIVATE) ?: return
         resumeChronometer()
-        isPuzzleComplete = sharedPref.getBoolean("isPuzzleComplete", false)
+        complete = sharedPref.getBoolean("isPuzzleComplete", false)
     }
 
-    private fun getCellAt(row: Int, col: Int): CellTextView? {
+    private fun getCellAt(row: Int, col: Int): CellTView? {
         val id = resources.getIdentifier("cell_" + col + row, "id", context?.packageName)
         return activity?.findViewById(id)
     }

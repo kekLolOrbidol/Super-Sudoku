@@ -19,9 +19,9 @@ abstract class AppDatabase : RoomDatabase(){
         private var INSTANCE: AppDatabase? = null
 
         fun getDatabase(context: Context, scope: CoroutineScope): AppDatabase{
-            val tempInstance = INSTANCE
-            if(tempInstance != null){
-                return tempInstance
+            val appDatabase = INSTANCE
+            if(appDatabase != null){
+                return appDatabase
             }
             synchronized(this){
                 val instance = Room.databaseBuilder(context.applicationContext,

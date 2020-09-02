@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.krisko.numbers.R
-import com.krisko.numbers.api.BugFormsApi
+import com.krisko.numbers.api.BugApi
 import com.krisko.numbers.viewmodel.MainSharedViewModel
 
 import kotlinx.android.synthetic.main.fragment_about.*
@@ -28,7 +28,7 @@ private const val FRAGMENT_ID = 4
 
 class AboutFragment : Fragment() {
 
-    private lateinit var sharedViewModel: MainSharedViewModel
+    private lateinit var mainSharedViewModel: MainSharedViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,10 +42,10 @@ class AboutFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sharedViewModel = activity?.run{
+        mainSharedViewModel = activity?.run{
             ViewModelProvider(this).get(MainSharedViewModel::class.java)
         }?: throw Exception("Invalid Activity")
-        sharedViewModel.currentFragment = FRAGMENT_ID
+        mainSharedViewModel.currentFragment = FRAGMENT_ID
 
         submit_bug_button.setOnClickListener {
             val url = "https://docs.google.com/forms/d/e/1FAIpQLSci1OcaM2mrXHP-H60Q6I2wVZsvMPeRyAUxAUtQZBf4k4oUMg/"
@@ -54,7 +54,7 @@ class AboutFragment : Fragment() {
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .build()
 
-            val bugFormsApi = retrofit.create(BugFormsApi::class.java)
+            val bugFormsApi = retrofit.create(BugApi::class.java)
             val bugFormsCall = bugFormsApi.fetchContent("pp_url", bug_edit_text.text.toString(), "Submit")
 
             bugFormsCall.enqueue(object : retrofit2.Callback<String> {

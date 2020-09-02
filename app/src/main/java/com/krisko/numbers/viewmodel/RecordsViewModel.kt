@@ -12,11 +12,11 @@ import com.krisko.numbers.data.SudokuStatsRepository
 class RecordsViewModel (application: Application) : AndroidViewModel(application){
 
     private val repository: SudokuStatsRepository
-    val recordData: LiveData<List<SudokuStats>>
+    val data: LiveData<List<SudokuStats>>
 
     init{
         val sudokuStatsDao = AppDatabase.getDatabase(application, viewModelScope).sudokuStatsDao()
         repository = SudokuStatsRepository(sudokuStatsDao)
-        recordData = repository.recordData
+        data = repository.recordData
     }
 }

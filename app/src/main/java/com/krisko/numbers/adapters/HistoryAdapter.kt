@@ -12,7 +12,7 @@ import java.lang.StringBuilder
 import java.text.DateFormat
 import java.util.*
 
-class HistoryRecyclerViewAdapter(locale: Locale) : RecyclerView.Adapter<HistoryRecyclerViewAdapter.StatsViewHolder>() {
+class HistoryAdapter(locale: Locale) : RecyclerView.Adapter<HistoryAdapter.StatsViewHolder>() {
 
     private var statsList = emptyList<SudokuStats>()
     private val dateFormat: DateFormat = DateFormat.getDateInstance(DateFormat.DEFAULT, locale)
@@ -34,21 +34,21 @@ class HistoryRecyclerViewAdapter(locale: Locale) : RecyclerView.Adapter<HistoryR
         position: Int
     ) {
         val statsItem = statsList[position]
-        val timeMinutes = statsItem.completedTime?.div(60)
-        val timeSeconds = statsItem.completedTime?.minus(statsItem.completedTime.div(60) * 60)
-        val timeStringBuilder = StringBuilder()
-        if(timeMinutes == 1){
-            timeStringBuilder.append(timeMinutes.toString() + " Minute ")
-        }else if(timeMinutes != 0) {
-            timeStringBuilder.append(timeMinutes.toString() + " Minutes ")
+        val timeMinute = statsItem.completedTime?.div(60)
+        val timeSecond = statsItem.completedTime?.minus(statsItem.completedTime.div(60) * 60)
+        val stringBuilder = StringBuilder()
+        if(timeMinute == 1){
+            stringBuilder.append(timeMinute.toString() + " Minute ")
+        }else if(timeMinute != 0) {
+            stringBuilder.append(timeMinute.toString() + " Minutes ")
         }
-        if(timeSeconds == 1){
-            timeStringBuilder.append(timeSeconds.toString() + " Second")
-        }else if(timeSeconds != 0){
-            timeStringBuilder.append(timeSeconds.toString() + " Seconds")
+        if(timeSecond == 1){
+            stringBuilder.append(timeSecond.toString() + " Second")
+        }else if(timeSecond != 0){
+            stringBuilder.append(timeSecond.toString() + " Seconds")
         }
         val date: String? = dateFormat.format(statsItem.date?.let { Date(it) })
-        holder.historyTextView.text = "Difficulty: ${getDifficultyString(statsItem.difficulty)} // ${statsItem.clues} clues\nCompleted in: $timeStringBuilder\nDate: $date"
+        holder.historyTextView.text = "Difficulty: ${getDifficultyString(statsItem.difficulty)} // ${statsItem.clues} clues\nCompleted in: $stringBuilder\nDate: $date"
         holder.historySudokuView.grid = statsItem.grid
 
     }

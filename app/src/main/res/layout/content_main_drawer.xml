@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.krisko.numbers.utils.MainDrawerContent xmlns:android="http://schemas.android.com/apk/res/android"
+<com.krisko.numbers.utils.DrawerContent xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/motion_drawer_menu"
@@ -54,15 +54,15 @@
         android:background="@color/buttonColor"
         style="?android:attr/borderlessButtonStyle"/>
 
-    <Button
-        android:id="@+id/drawer_button_about"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/about"
-        android:textColor="@color/drawerTextColor"
-        android:textSize="14sp"
-        android:background="@color/buttonColor"
-        style="?android:attr/borderlessButtonStyle"/>
+<!--    <Button-->
+<!--        android:id="@+id/drawer_button_about"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@string/about"-->
+<!--        android:textColor="@color/drawerTextColor"-->
+<!--        android:textSize="14sp"-->
+<!--        android:background="@color/buttonColor"-->
+<!--        style="?android:attr/borderlessButtonStyle"/>-->
 
     <Button
         android:id="@+id/drawer_diff_1"
@@ -114,4 +114,4 @@
         android:background="@color/buttonColor"
         style="?android:attr/borderlessButtonStyle"/>
 
-</com.krisko.numbers.utils.MainDrawerContent>
+</com.krisko.numbers.utils.DrawerContent>

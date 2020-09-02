@@ -1,7 +1,7 @@
 package com.krisko.numbers.utils
 
 import android.util.Log
-import com.krisko.numbers.data.SudokuBoard
+import com.krisko.numbers.data.SBoard
 
 import java.util.*
 
@@ -14,8 +14,8 @@ class MySudoku {
     var removedCells = 0
     var grid: Array<IntArray> = Array(9) { IntArray(9) }
     var unsolvedGrid: Array<IntArray> = Array(9) { IntArray(9) }
-    var oneDimList: ArrayList<String> = ArrayList(81)
-    var oneDimArr = arrayOf(
+    var dimList: ArrayList<String> = ArrayList(81)
+    var dimArr = arrayOf(
         "1,1","1,2","1,3","1,4","1,5","1,6","1,7","1,8","1,9",
         "2,1","2,2","2,3","2,4","2,5","2,6","2,7","2,8","2,9",
         "3,1","3,2","3,3","3,4","3,5","3,6","3,7","3,8","3,9",
@@ -41,7 +41,7 @@ class MySudoku {
         return row
     }
 
-    fun createGame(difficulty: Int?): SudokuBoard {
+    fun createGame(difficulty: Int?): SBoard {
         val maxRemovedCells: Int
         when (difficulty) { //The difficulty ranges from 1-10, easy to hardest
             0 -> maxRemovedCells = 34
@@ -62,19 +62,19 @@ class MySudoku {
             removedCells = 0
 
             for (i in 0 until 81){
-                oneDimList.add(oneDimArr[i])
+                dimList.add(dimArr[i])
             }
 
-            oneDimList.shuffle()
+            dimList.shuffle()
             loop@ for (i in 0 until 81){
-                if(removeCellNumber(oneDimList[i].split(",")[0].toInt() - 1,
-                        oneDimList[i].split(",")[1].toInt() - 1)){
+                if(removeCellNumber(dimList[i].split(",")[0].toInt() - 1,
+                        dimList[i].split(",")[1].toInt() - 1)){
                     //Breaks loop if the maximum amount of cells to remove is surpassed
                     if(actualClues() <= 81-maxRemovedCells) break@loop
                 }
                 //Mirroring. This needs to be optimized before implemented
-                if(removeCellNumber(8 - oneDimList[i].split(",")[0].toInt() + 1,
-                        8 - oneDimList[i].split(",")[1].toInt() + 1)){
+                if(removeCellNumber(8 - dimList[i].split(",")[0].toInt() + 1,
+                        8 - dimList[i].split(",")[1].toInt() + 1)){
                     //Breaks loop if the maximum amount of cells to remove is surpassed
                     if(actualClues() <= 81-maxRemovedCells) break@loop
                 }
@@ -91,7 +91,7 @@ class MySudoku {
         println("Removed cells: " + (81 - cluesCountHardestGrid))
         println("Actual clues: " + actualClues())*/
         unsolvedGrid = gridHardest
-        return SudokuBoard(gridHardest, actualClues())
+        return SBoard(gridHardest, actualClues())
     }
 
     private fun initGame() {
@@ -206,7 +206,7 @@ class MySudoku {
     fun resetGrid() {
         grid = Array(9) { IntArray(9) }
         unsolvedGrid = Array(9) { IntArray(9) }
-        oneDimList = ArrayList(81)
+        dimList = ArrayList(81)
     }
 
     fun printGame(game: Array<IntArray>) {

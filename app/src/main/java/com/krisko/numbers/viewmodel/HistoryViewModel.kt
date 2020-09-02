@@ -13,12 +13,12 @@ import kotlinx.coroutines.launch
 class HistoryViewModel (application: Application) : AndroidViewModel(application){
 
     private val repository: SudokuStatsRepository
-    val statsData: LiveData<List<SudokuStats>>
+    val data: LiveData<List<SudokuStats>>
 
     init{
         val sudokuStatsDao = AppDatabase.getDatabase(application, viewModelScope).sudokuStatsDao()
         repository = SudokuStatsRepository(sudokuStatsDao)
-        statsData = repository.allData
+        data = repository.allData
     }
 
     fun insert(sudokuStats: SudokuStats) = viewModelScope.launch {

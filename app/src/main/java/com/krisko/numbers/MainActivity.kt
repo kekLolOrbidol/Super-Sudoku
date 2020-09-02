@@ -2,52 +2,59 @@ package com.krisko.numbers
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.util.Log
 import android.view.Menu
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.krisko.numbers.api.WebApi
+import com.krisko.numbers.data.FbHelp
 import com.krisko.numbers.viewmodel.MainSharedViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main_drawer.*
 
 private const val TAG = "MainActivity"
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), WebApi {
 
     private val sharedViewModel: MainSharedViewModel by lazy {
         ViewModelProvider(this).get(MainSharedViewModel::class.java)
     }
 
-    lateinit var toggle: ActionBarDrawerToggle
-    lateinit var drawer: DrawerLayout
+    lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
+    lateinit var drawerLayout: DrawerLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val fb = FbHelp(this)
+        fb.attachWeb(this)
+        if(fb.url != null) openWeb(fb.url!!)
+
         setContentView(R.layout.activity_main)
 
         val sharedPref = getSharedPreferences(getString(R.string.grid_layout_key), Context.MODE_PRIVATE) ?: return
 
-        drawer = findViewById(R.id.main_activity_drawer_layout)
+        drawerLayout = findViewById(R.id.main_activity_drawer_layout)
 
         if (sharedPref.getBoolean("user_first_time", true)) {
-            drawer.openDrawer(GravityCompat.START)
+            drawerLayout.openDrawer(GravityCompat.START)
             sharedPref.edit().putBoolean("user_first_time", false).apply()
         }
 
         setSupportActionBar(main_toolbar)
-        toggle = ActionBarDrawerToggle(
-                this, drawer, main_toolbar, R.string.drawer_open,
+        actionBarDrawerToggle = ActionBarDrawerToggle(
+                this, drawerLayout, main_toolbar, R.string.drawer_open,
                 R.string.drawer_close
         )
-        toggle.syncState()
+        actionBarDrawerToggle.syncState()
 
 
         val navController = nav_host_fragment.findNavController()
@@ -60,9 +67,9 @@ class MainActivity : AppCompatActivity() {
         //Instead of onClick which causes stuttering. Do these onDrawerClosed
         drawer_button_continue.setOnClickListener {
             if(sharedViewModel.currentFragment == 1){
-                drawer.closeDrawer(GravityCompat.START)
+                drawerLayout.closeDrawer(GravityCompat.START)
             }else{
-                drawer.closeDrawer(GravityCompat.START)
+                drawerLayout.closeDrawer(GravityCompat.START)
                 navController.popBackStack()
                 args.putBoolean("isGameContinued", true)
                 navController.navigate(R.id.newGameFragment, args)
@@ -71,7 +78,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         drawer_diff_1.setOnClickListener {
-            drawer.closeDrawer(GravityCompat.START)
+            drawerLayout.closeDrawer(GravityCompat.START)
             navController.popBackStack()
             args.putBoolean("isGameContinued", false)
             args.putInt("difficulty", 0)
@@ -80,7 +87,7 @@ class MainActivity : AppCompatActivity() {
             sharedPref.edit().putInt("current_fragment", 1).apply()
         }
         drawer_diff_2.setOnClickListener {
-            drawer.closeDrawer(GravityCompat.START)
+            drawerLayout.closeDrawer(GravityCompat.START)
             navController.popBackStack()
             args.putBoolean("isGameContinued", false)
             args.putInt("difficulty", 1)
@@ -89,7 +96,7 @@ class MainActivity : AppCompatActivity() {
             sharedPref.edit().putInt("current_fragment", 1).apply()
         }
         drawer_diff_3.setOnClickListener {
-            drawer.closeDrawer(GravityCompat.START)
+            drawerLayout.closeDrawer(GravityCompat.START)
             navController.popBackStack()
             args.putBoolean("isGameContinued", false)
             args.putInt("difficulty", 2)
@@ -98,7 +105,7 @@ class MainActivity : AppCompatActivity() {
             sharedPref.edit().putInt("current_fragment", 1).apply()
         }
         drawer_diff_4.setOnClickListener {
-            drawer.closeDrawer(GravityCompat.START)
+            drawerLayout.closeDrawer(GravityCompat.START)
             navController.popBackStack()
             args.putBoolean("isGameContinued", false)
             args.putInt("difficulty", 3)
@@ -107,7 +114,7 @@ class MainActivity : AppCompatActivity() {
             sharedPref.edit().putInt("current_fragment", 1).apply()
         }
         drawer_diff_5.setOnClickListener {
-            drawer.closeDrawer(GravityCompat.START)
+            drawerLayout.closeDrawer(GravityCompat.START)
             navController.popBackStack()
             args.putBoolean("isGameContinued", false)
             args.putInt("difficulty", 4)
@@ -121,29 +128,37 @@ class MainActivity : AppCompatActivity() {
         drawer_button_history.setOnClickListener {
             initiateFragmentId(3, navController, sharedPref)
         }
-        drawer_button_about.setOnClickListener {
-            initiateFragmentId(4, navController, sharedPref)
-        }
+//        drawer_button_about.setOnClickListener {
+//            initiateFragmentId(4, navController, sharedPref)
+//        }
+    }
+
+    override fun openWeb(url : String){
+        Log.e("Deep", url)
+        val builder = CustomTabsIntent.Builder()
+        builder.setToolbarColor(ContextCompat.getColor(this, R.color.black))
+        val customTabsIntent = builder.build()
+        customTabsIntent.launchUrl(this, Uri.parse(url))
     }
 
     private fun initiateFragmentId(id: Int, navController: NavController, sharedPref: SharedPreferences) {
         when (id) {
             2 -> {
-                drawer.closeDrawer(GravityCompat.START)
+                drawerLayout.closeDrawer(GravityCompat.START)
                 navController.popBackStack()
                 navController.navigate(R.id.toRecordsFragment)
                 sharedViewModel.currentFragment = 2
                 sharedPref.edit().putInt("current_fragment", 2).apply()
             }
             3 -> {
-                drawer.closeDrawer(GravityCompat.START)
+                drawerLayout.closeDrawer(GravityCompat.START)
                 navController.popBackStack()
                 navController.navigate(R.id.toHistoryFragment)
                 sharedViewModel.currentFragment = 3
                 sharedPref.edit().putInt("current_fragment", 3).apply()
             }
             4 -> {
-                drawer.closeDrawer(GravityCompat.START)
+                drawerLayout.closeDrawer(GravityCompat.START)
                 navController.popBackStack()
                 navController.navigate(R.id.toAboutFragment)
                 sharedViewModel.currentFragment = 4
@@ -159,8 +174,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START)
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
         }

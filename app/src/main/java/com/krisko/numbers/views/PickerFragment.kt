@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import com.krisko.numbers.R
 import kotlinx.android.synthetic.main.number_picker_layout.*
 
-class NumberPickerFragment: Fragment() {
+class PickerFragment: Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,

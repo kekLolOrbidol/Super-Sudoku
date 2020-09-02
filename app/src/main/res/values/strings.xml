@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">GameOfSudoku</string>
+    <string name="app_name">Sudoku Joy</string>
     <string name="play_continue">Continue</string>
     <string name="my_records">My records</string>
     <string name="my_sudoku_history">My Sudoku history</string>

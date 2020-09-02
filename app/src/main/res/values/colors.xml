@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#F5E9E4</color>
-    <color name="colorPrimaryDark">#826A58</color>
+    <color name="colorPrimaryDark">#B12BC8</color>
     <color name="colorAccent">#000000</color>
+    <color name="black">#000</color>
 
     <color name="main_background">#F5E9E4</color>
 
@@ -13,9 +14,9 @@
     <color name="regionColor">#F5E9E4</color>
     <color name="textColor">#271E1B</color>
     <color name="drawerTextColor">#FFFFFF</color>
-    <color name="buttonColor">#826A58</color>
+    <color name="buttonColor">#FF1AE8</color>
     <color name="toastColor">#A6826A58</color>
-    <color name="drawerBackground">#B39084</color>
+    <color name="drawerBackground">#80278F</color>
 
     <!-- CORRECT/WRONG SUDOKU -->
     <color name="wrongSudoku">#EF9A9A</color>
