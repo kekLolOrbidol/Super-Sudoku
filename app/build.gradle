@@ -17,10 +17,32 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+
+        production {
+            storeFile file("../keystore/android_release.keystore")
+            storePassword "sudoku_mudoku_release_pass"
+            keyAlias "sudoku_mudoku_release"
+            keyPassword "sudoku_mudoku_release_pass"
+        }
+
+        debug {
+            storeFile file("../keystore/android_debug.keystore")
+            storePassword "sudoku_mudoku_debug_pass"
+            keyAlias "sudoku_mudoku_debug"
+            keyPassword "sudoku_mudoku_debug_pass"
+        }
+
+    }
+
+
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.production
+        }
+
+        debug {
+            signingConfig signingConfigs.debug
         }
     }
 }
